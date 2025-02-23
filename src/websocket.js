@@ -9,7 +9,7 @@ export const socket = writable(null);
 
 export function initializeWebSocket() {
 
-    const ws = new WebSocket('ws://localhost:6969');
+    const ws = new WebSocket('ws://138.2.166.17:6969');
 
     ws.onopen = () => {
         console.log('WebSocket connection established');
