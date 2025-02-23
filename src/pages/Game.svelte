@@ -1,6 +1,6 @@
 <script>
     import { socket } from "../websocket";
-    import { cards, lobbyInfo } from "../globals";
+    import { cards, lobbyInfo, playerOnTurn } from "../globals";
     import { ClassColor, WowRole } from "../util";
     import FlipCard from "../components/FlipCard.svelte";
 
@@ -31,11 +31,20 @@
     $: player2Dps = lobby.clients[1].characters.filter(
         (character) => character.wowRole === WowRole.DPS,
     );
+
+    $: onTurn = $playerOnTurn;
 </script>
 
 <main>
     <div class="column-container">
         <div class="column left">
+            {#if onTurn == 0}
+                <span style="color: red;"><h1>{lobby.clients[0].name}</h1></span
+                >
+            {:else}
+                <h1>{lobby.clients[0].name}</h1>
+            {/if}
+
             {#if player1Tanks.length > 0}
                 <h3>Tanks</h3>
                 {#each player1Tanks as character}
@@ -71,6 +80,13 @@
             </div>
         </div>
         <div class="column right" style="text-align: right;">
+            {#if onTurn == 1}
+                <span style="color: red;"><h1>{lobby.clients[1].name}</h1></span
+                >
+            {:else}
+                <h1>{lobby.clients[1].name}</h1>
+            {/if}
+
             {#if player2Tanks.length > 0}
                 <h3>Tanks</h3>
                 {#each player2Tanks as character}

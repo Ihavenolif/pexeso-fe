@@ -34,7 +34,7 @@
             ? 'hidden'
             : ''}"
     >
-        <div class="card-face front">Front</div>
+        <div class="card-face front"></div>
         <div class="card-face back" style="background-color: {color};">
             {card.name}
         </div>
@@ -44,8 +44,8 @@
 <style>
     .card-container {
         perspective: 1000px;
-        width: 100px;
-        height: 100px;
+        width: 96px;
+        height: 96px;
     }
 
     .card {
@@ -73,13 +73,14 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.5rem;
+        font-size: 1rem;
         font-weight: bold;
         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
     }
 
     .front {
-        background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+        /*background: linear-gradient(135deg, #ff9a9e, #fad0c4);*/
+        background-image: url("http://ihavenolif.win/static/iao.webp");
     }
 
     .back {

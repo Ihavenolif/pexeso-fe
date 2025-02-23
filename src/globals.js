@@ -14,3 +14,5 @@ export let gameState = writable(GameStates.LOGIN);
  * @type {Writable<Card[]>}
  */
 export let cards = writable([]);
+
+export let playerOnTurn = writable(0);

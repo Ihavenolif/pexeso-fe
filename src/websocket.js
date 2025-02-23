@@ -1,7 +1,7 @@
 import { writable, get } from "svelte/store";
 import { MessageType, GameStates } from "./util";
 import { Lobby } from "./classes/Lobby";
-import { lobbies, clientName, clientId, lobbyInfo, gameState, cards } from "./globals";
+import { lobbies, clientName, clientId, lobbyInfo, gameState, cards, playerOnTurn } from "./globals";
 import { navigate } from "svelte-routing";
 import { Card } from "./classes/Card"
 
@@ -9,7 +9,7 @@ export const socket = writable(null);
 
 export function initializeWebSocket() {
 
-    const ws = new WebSocket('ws://138.2.166.17:6969');
+    const ws = new WebSocket('ws://localhost:6969');
 
     ws.onopen = () => {
         console.log('WebSocket connection established');
@@ -179,6 +179,8 @@ function handleTurnEvaluation(data) {
             }
         })
     }
+
+    playerOnTurn.set(data.onTurn);
 
     cards.set(_cards);
 }
