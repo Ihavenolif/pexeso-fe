@@ -5,8 +5,6 @@
     import { sendCustomMessage } from "../requests";
     import { getLobbies } from "../requests";
 
-    export let name;
-
     /**
      * @type {WebSocket}
      */

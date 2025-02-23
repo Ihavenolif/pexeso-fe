@@ -1,4 +1,4 @@
-import { Writable, writable } from "svelte/store";
+import { writable } from "svelte/store";
 import { GameStates } from "./util";
 import { Card } from "./classes/Card";
 

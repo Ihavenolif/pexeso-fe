@@ -7,8 +7,6 @@
     import { Lobby } from "../classes/Lobby";
     import { onMount } from "svelte";
 
-    export let name;
-
     /**
      * @type {WebSocket}
      */
