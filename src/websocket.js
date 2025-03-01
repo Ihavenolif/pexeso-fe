@@ -69,6 +69,9 @@ export function initializeWebSocket() {
             case MessageType.TURN_EVALUATION:
                 handleTurnEvaluation(data);
                 break;
+            case MessageType.GAME_PAUSED:
+                handleGamePaused(data);
+                break;
             default:
                 console.log('Received message:', data);
         }
@@ -80,13 +83,14 @@ function handleJoinLobby(data) {
         gameState.set(GameStates.LOBBY);
     }
 
-    console.log(data.Clients);
+    console.log(data);
 
     lobbyInfo.set({
         clients: data.Clients,
         spectators: data.Spectators,
         id: data.id,
-        name: data.name
+        name: data.name,
+        paused: false
     })
 
     navigate("/lobby")
@@ -183,4 +187,14 @@ function handleTurnEvaluation(data) {
     playerOnTurn.set(data.onTurn);
 
     cards.set(_cards);
+}
+
+function handleGamePaused(data) {
+    if (get(gameState) != GameStates.IN_GAME) {
+        return;
+    }
+
+    let gameInfo = get(lobbyInfo);
+    gameInfo.paused = data.paused;
+    lobbyInfo.set(gameInfo);
 }

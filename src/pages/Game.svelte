@@ -1,8 +1,9 @@
 <script>
     import { socket } from "../websocket";
-    import { cards, lobbyInfo, playerOnTurn } from "../globals";
+    import { cards, lobbyInfo, playerOnTurn, clientName } from "../globals";
     import { ClassColor, WowRole } from "../util";
     import FlipCard from "../components/FlipCard.svelte";
+    import { gamePaused } from "../requests";
 
     /**
      * @type {WebSocket}
@@ -12,6 +13,17 @@
 
     let lobby;
     $: lobby = $lobbyInfo;
+
+    let isPaused;
+    $: isPaused = $lobbyInfo.paused;
+
+    let spectatorUsernames;
+    $: spectatorUsernames = $lobbyInfo.spectators.map(
+        (spectator) => spectator.name,
+    );
+
+    let localPlayerUsername;
+    $: localPlayerUsername = $clientName;
 
     $: player1Tanks = lobby.clients[0].characters.filter(
         (character) => character.wowRole === WowRole.TANK,
@@ -77,6 +89,23 @@
                 {#each $cards as card}
                     <FlipCard id={card.id} />
                 {/each}
+            </div>
+
+            <div class="sticky-center">
+                {#if spectatorUsernames.includes(localPlayerUsername)}
+                    <button
+                        class="btn"
+                        on:click={() => {
+                            gamePaused(ws);
+                        }}
+                    >
+                        {isPaused ? "Resume" : "Pause"}
+                    </button>
+                {/if}
+
+                {#if isPaused}
+                    <p class="paused">⏸️ Paused</p>
+                {/if}
             </div>
         </div>
         <div class="column right" style="text-align: right;">
@@ -145,5 +174,35 @@
 
     .right {
         width: 20%;
+    }
+
+    .sticky-center {
+        position: fixed;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #fff;
+        text-align: center;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn {
+        padding: 0.5rem 1rem;
+        background-color: #0077ff;
+        border: none;
+        border-radius: 8px;
+        color: white;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+        background-color: #0055cc;
+    }
+
+    .paused {
+        font-size: 1.2rem;
+        color: #ff4444;
     }
 </style>

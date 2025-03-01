@@ -10,7 +10,8 @@ export const MessageType = {
     JOIN_AS_SPECTATOR: 8,
     START_GAME: 9,
     CARD_CLICKED: 10,
-    TURN_EVALUATION: 11
+    TURN_EVALUATION: 11,
+    GAME_PAUSED: 12
 }
 
 export const GameStates = {

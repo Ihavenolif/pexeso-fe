@@ -72,3 +72,9 @@ export function cardClicked(ws, cardId) {
         })
     }));
 }
+
+export function gamePaused(ws) {
+    ws.send(JSON.stringify({
+        messageType: MessageType.GAME_PAUSED
+    }));
+}
