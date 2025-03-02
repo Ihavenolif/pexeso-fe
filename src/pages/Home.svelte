@@ -1,6 +1,38 @@
 <script>
     import { socket } from "../websocket";
     import { login } from "../requests";
+    import Game from "./Game.svelte";
+    import { clientId, lobbyInfo } from "../globals";
+
+    lobbyInfo.set({
+        clients: [
+            {
+                name: "one",
+                clientId: 0,
+                isReady: true,
+                isSpectator: false,
+                characters: [
+                    {
+                        name: "Nolife",
+                        id: 0,
+                        wowClass: 1,
+                        wowRole: 1,
+                    },
+                ],
+            },
+            {
+                name: "two",
+                clientId: 1,
+                isReady: true,
+                isSpectator: false,
+                characters: [],
+            },
+        ],
+        spectators: [],
+        id: 0,
+        name: "test",
+        paused: false,
+    });
 
     /**
      * @type {WebSocket}
@@ -12,20 +44,18 @@
 </script>
 
 <main>
-    <h1>This is the home site!</h1>
-    <p>
-        Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn
-        how to build Svelte apps.
-    </p>
+    <h1>Vítej v IAO Pexeso-like!</h1>
+
+    <input bind:value={username} type="text" placeholder="Username" />
+
+    <button
+        on:click={() => {
+            login(ws, username);
+        }}>Login</button
+    >
+
+    <Game></Game>
 </main>
-
-<input bind:value={username} type="text" placeholder="Username" />
-
-<button
-    on:click={() => {
-        login(ws, username);
-    }}>asdasdasd</button
->
 
 <style>
     main {

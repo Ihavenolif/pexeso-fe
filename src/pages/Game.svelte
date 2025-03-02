@@ -4,6 +4,7 @@
     import { ClassColor, WowRole } from "../util";
     import FlipCard from "../components/FlipCard.svelte";
     import { gamePaused } from "../requests";
+    import CharacterItem from "../components/CharacterItem.svelte";
 
     /**
      * @type {WebSocket}
@@ -51,36 +52,31 @@
     <div class="column-container">
         <div class="column left">
             {#if onTurn == 0}
-                <span style="color: red;"><h1>{lobby.clients[0].name}</h1></span
+                <span style="color: red;"
+                    ><h1 style="margin: 1em;">{lobby.clients[0].name}</h1></span
                 >
             {:else}
-                <h1>{lobby.clients[0].name}</h1>
+                <h1 style="margin: 1em;">{lobby.clients[0].name}</h1>
             {/if}
 
             {#if player1Tanks.length > 0}
-                <h3>Tanks</h3>
+                <h3 style="margin: 0.7em;">Tanks</h3>
                 {#each player1Tanks as character}
-                    <p style="color: {ClassColor[character.wowClass]}">
-                        {character.name}
-                    </p>
+                    <CharacterItem characterInfo={character}></CharacterItem>
                 {/each}
             {/if}
 
             {#if player1Healers.length > 0}
-                <h3>Healers</h3>
+                <h3 style="margin: 0.7em;">Healers</h3>
                 {#each player1Healers as character}
-                    <p style="color: {ClassColor[character.wowClass]}">
-                        {character.name}
-                    </p>
+                    <CharacterItem characterInfo={character}></CharacterItem>
                 {/each}
             {/if}
 
             {#if player1Dps.length > 0}
-                <h3>DPS</h3>
+                <h3 style="margin: 0.7em;">DPS</h3>
                 {#each player1Dps as character}
-                    <p style="color: {ClassColor[character.wowClass]}">
-                        {character.name}
-                    </p>
+                    <CharacterItem characterInfo={character}></CharacterItem>
                 {/each}
             {/if}
         </div>
@@ -92,6 +88,10 @@
             </div>
 
             <div class="sticky-center">
+                {#if isPaused}
+                    <p class="paused">⏸️ Paused</p>
+                {/if}
+
                 {#if spectatorUsernames.includes(localPlayerUsername)}
                     <button
                         class="btn"
@@ -102,44 +102,38 @@
                         {isPaused ? "Resume" : "Pause"}
                     </button>
                 {/if}
-
-                {#if isPaused}
-                    <p class="paused">⏸️ Paused</p>
-                {/if}
             </div>
         </div>
         <div class="column right" style="text-align: right;">
             {#if onTurn == 1}
-                <span style="color: red;"><h1>{lobby.clients[1].name}</h1></span
+                <span style="color: red;"
+                    ><h1 style="margin: 1em;">{lobby.clients[1].name}</h1></span
                 >
             {:else}
-                <h1>{lobby.clients[1].name}</h1>
+                <h1 style="margin: 1em;">{lobby.clients[1].name}</h1>
             {/if}
 
             {#if player2Tanks.length > 0}
-                <h3>Tanks</h3>
+                <h3 style="margin: 0.7em;">Tanks</h3>
                 {#each player2Tanks as character}
-                    <p style="color: {ClassColor[character.wowClass]}">
-                        {character.name}
-                    </p>
+                    <CharacterItem characterInfo={character} isRight={true}
+                    ></CharacterItem>
                 {/each}
             {/if}
 
             {#if player2Healers.length > 0}
-                <h3>Healers</h3>
+                <h3 style="margin: 0.7em;">Healers</h3>
                 {#each player2Healers as character}
-                    <p style="color: {ClassColor[character.wowClass]}">
-                        {character.name}
-                    </p>
+                    <CharacterItem characterInfo={character} isRight={true}
+                    ></CharacterItem>
                 {/each}
             {/if}
 
             {#if player2Dps.length > 0}
-                <h3>DPS</h3>
+                <h3 style="margin: 0.7em;">DPS</h3>
                 {#each player2Dps as character}
-                    <p style="color: {ClassColor[character.wowClass]}">
-                        {character.name}
-                    </p>
+                    <CharacterItem characterInfo={character} isRight={true}
+                    ></CharacterItem>
                 {/each}
             {/if}
         </div>
@@ -166,6 +160,7 @@
 
     .left {
         width: 20%;
+        padding: 0;
     }
 
     .middle {
@@ -174,6 +169,7 @@
 
     .right {
         width: 20%;
+        padding: 0;
     }
 
     .sticky-center {

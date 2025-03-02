@@ -29,11 +29,11 @@
 </script>
 
 <Router>
-	<nav class="navbar">
+	<!--<nav class="navbar">
 		<Link to="/">Home</Link>
 		<Link to="/test">Test</Link>
 		<Link to="/lobbies">Lobbies</Link>
-	</nav>
+	</nav>-->
 
 	<Route path="/test" component={Test} />
 	<Route path="/" component={Home} />

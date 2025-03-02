@@ -54,7 +54,7 @@ export const ClassColor = [
     "#3FC7EB",
     "#00FF98",
     "#F48CBA",
-    "#FFFFFF",
+    "#DDDDDD",
     "#FFF468",
     "#0070DD",
     "#8788EE",

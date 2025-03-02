@@ -30,9 +30,9 @@
     }}
 >
     <div
-        class="card {card.flipped ? 'flipped' : ''} {card.hidden
-            ? 'hidden'
-            : ''}"
+        class="no-drag no-select card {card.flipped
+            ? 'flipped'
+            : ''} {card.hidden ? 'hidden' : ''}"
     >
         <div class="card-face front"></div>
         <div class="card-face back" style="background-color: {color};">
@@ -86,5 +86,20 @@
     .back {
         /*background: linear-gradient(135deg, #a1c4fd, #c2e9fb);*/
         transform: rotateY(180deg);
+    }
+
+    /* Disable dragging */
+    .no-drag {
+        user-drag: none; /* Safari */
+        -webkit-user-drag: none; /* Chrome, Opera */
+        pointer-events: none; /* Prevent interaction */
+    }
+
+    /* Disable text selection */
+    .no-select {
+        user-select: none; /* Modern browsers */
+        -webkit-user-select: none; /* Safari */
+        -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* IE/Edge */
     }
 </style>
