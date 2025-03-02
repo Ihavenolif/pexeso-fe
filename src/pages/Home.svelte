@@ -53,8 +53,6 @@
             login(ws, username);
         }}>Login</button
     >
-
-    <Game></Game>
 </main>
 
 <style>
